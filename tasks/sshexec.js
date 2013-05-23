@@ -13,8 +13,9 @@ module.exports = function (grunt) {
 
   grunt.util = grunt.util || grunt.utils;
 
-  grunt.registerMultiTask('sshexec', 'Executes a shell command on a remote machine', function () {
+  grunt.registerMultiTask('sshexec', 'Executes a shell command on a remote machine', function () {    
     var utillib = require('./lib/util').init(grunt);
+    var fs = require('fs');
     var Connection = require('ssh2');
     var c = new Connection();
 
@@ -96,6 +97,10 @@ module.exports = function (grunt) {
 
     if (options.privateKey) {
       connectionOptions.privateKey = options.privateKey;
+      connectionOptions.passphrase = options.passphrase;
+    }
+    else if (options.privateKeyPath) {
+      connectionOptions.privateKey = fs.readFileSync(options.privateKeyPath);
       connectionOptions.passphrase = options.passphrase;
     }
     else {

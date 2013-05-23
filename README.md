@@ -118,9 +118,20 @@ options: {
 }
 ```
 
+###### privateKeyPath ```string```
+
+A string containing path to a private key to use to authenticate with the remote system. Useful when same Gruntfile.js is used by multiple users with their own keys.
+
+```js
+options: {
+  privateKeyPath: <%= secret.keypath %>,
+  passphrase: <%= secret.passphrase %>
+}
+```
+
 ###### passphrase ```string```
 
-The passphrase to use with the ```privateKey```. As per the ```privateKey```, do not expose this in your Gruntfile or anywhere that'll end up public unless you mean it, load it from an external file.
+The passphrase to use with the ```privateKey``` or ```privateKeyPath```. As per the ```privateKey```, do not expose this in your Gruntfile or anywhere that'll end up public unless you mean it, load it from an external file.
 
 ###### host ```string```
 
