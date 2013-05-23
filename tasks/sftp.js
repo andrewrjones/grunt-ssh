@@ -163,6 +163,10 @@ module.exports = function (grunt) {
       connectionOptions.privateKey = options.privateKey;
       connectionOptions.passphrase = options.passphrase;
     }
+    else if (options.privateKeyPath) {
+      connectionOptions.privateKey = fs.readFileSync(options.privateKeyPath);
+      connectionOptions.passphrase = options.passphrase;
+    }
     else {
       connectionOptions.password = options.password;
     }
