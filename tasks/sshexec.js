@@ -30,21 +30,29 @@ module.exports = function (grunt) {
       agent: "",
       port: utillib.port,
       ignoreErrors: false,
-      minimatch: {}
+      minimatch: {},
+      suppressRemoteErrors: false
     });
 
     grunt.verbose.writeflags(options, 'Raw Options');
 
-    var config;
-    if ((!options.config) && (config = grunt.option('config'))) {
-      options.config = config;
+    function setOption(optionName){
+      var option;
+        if ((!options[optionName]) && (option = grunt.option(optionName))) {
+          options[optionName] = option;
+        }
     }
+    setOption('config');
 
     if (options.config && grunt.util._(options.config).isString()) {
       this.requiresConfig(['sshconfig', options.config]);
       var configOptions = grunt.config.get(['sshconfig', options.config]);
       options = grunt.util._.extend(options, configOptions);
     }
+
+    setOption('username');
+    setOption('password');
+    setOption('passphrase');
 
     grunt.verbose.writeflags(options, 'Options');
 
@@ -67,6 +75,7 @@ module.exports = function (grunt) {
       done();
     });
 
+
     function execCommand() {
       if (commands.length === 0) {
         c.end();
@@ -79,8 +88,8 @@ module.exports = function (grunt) {
           }
           stream.on('data', function (data, extended) {
             var out = String(data);
-            if (extended === 'stderr') {
-              grunt.log.warn(out);
+            if (extended === 'stderr' ) {
+              if (!options.suppressRemoteErrors) grunt.log.warn(out);
             } else {
               grunt.log.write(out);
             }
