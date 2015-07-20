@@ -36,7 +36,8 @@ module.exports = function (grunt) {
       createDirectories: false,
       directoryPermissions: parseInt(755, 8),
       showProgress: false,
-      mode: 'upload'
+      mode: 'upload',
+      callback: function() {}
     });
 
     var tally = {
@@ -393,6 +394,7 @@ module.exports = function (grunt) {
       grunt.log.writeln((
       tally.dirs ? 'Created ' + tally.dirs.toString().cyan + ' directories, copied ' : 'Copied ') + (tally.files ? tally.files.toString().cyan + ' files' : ''));
       grunt.verbose.writeln('Connection :: close');
+      options.callback.call();
       done();
     });
 
