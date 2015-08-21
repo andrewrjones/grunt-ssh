@@ -184,7 +184,7 @@ module.exports = function (grunt) {
                               callback();
                             }
                             list.forEach(function (item) {
-                              downloadingRecursive(path.join(directorySrc, item.filename), path.join(directoryDest, item.filename));
+                              downloadingRecursive(path.posix.join(directorySrc, item.filename), path.join(directoryDest, item.filename));
                             });
                           });
                         };
