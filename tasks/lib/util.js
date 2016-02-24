@@ -33,13 +33,13 @@ exports.init = function (grunt) {
     return grunt.template.process(exports.validateString(name, string));
   };
 
-  exports.validateStringArrayAndProcess = function (name, strings) {
+  exports.validateStringArrayAndProcess = function (name, strings,args) {
     if (!strings) {
       grunt.warn('Missing ' + name + ' property.');
       return false;
     }
     if (grunt.util._.isFunction(strings)) {
-      strings = strings(grunt);
+      strings = strings.apply(grunt, args);
     }
     if (grunt.util._(strings).isString()) {
       return [grunt.template.process(strings)];
