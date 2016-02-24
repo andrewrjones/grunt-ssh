@@ -20,7 +20,7 @@ module.exports = function (grunt) {
 
     var done = this.async();
 
-    var commands = utillib.validateStringArrayAndProcess('command', this.data.command);
+    var commands = utillib.validateStringArrayAndProcess('command', this.data.command,[].slice.call(arguments, 0));
 
     var options = this.options({
       config: false,
