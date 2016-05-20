@@ -90,6 +90,9 @@ exports.init = function (grunt) {
       if (options.passphrase) {
         connectionOptions.passphrase = options.passphrase.trim();
       }
+      if (options.agent) {
+        connectionOptions.agent = options.agent;
+      }
     }
     else if (options.password) {
       connectionOptions.password = options.password;
