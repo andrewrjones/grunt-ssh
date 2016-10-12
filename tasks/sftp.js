@@ -66,6 +66,11 @@ module.exports = function (grunt) {
     setOption('passphrase');
     setOption('showProgress');
 
+    // invoke path function (if applicable)
+    if (typeof(options.path) === 'function') {
+      options.path = options.path();
+    }
+
     // add trailing slash to path if needed
     if (('' !== options.path) && !options.path.match(/(\/|\\)$/)) {
       options.path = options.path + '/';
