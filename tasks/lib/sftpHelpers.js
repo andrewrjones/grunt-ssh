@@ -12,7 +12,7 @@ exports.init = function (grunt) {
     var pathParts = path.split("/").filter(function (part) {
       return part !== "";
     });
-    var currentPath = "/";
+    var currentPath = "./";
     var ptr = 0;
 
     var mkdir = function (path, callback) {
